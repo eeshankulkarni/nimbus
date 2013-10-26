@@ -1,0 +1,118 @@
+<% provide(:title, 'Guide') %>
+<br>
+<h1 class="featurette-heading"> <%= "#{@reviewpassed.days}"%> days in <%= "#{@reviewpassed.city}"%> in <%= "#{@reviewpassed.season}"%></h1>
+<h2>    by <%= link_to User.find_by(id: @reviewpassed.user_id).name, User.find_by(id: @reviewpassed.user_id)%> <br></h2>
+    <br>
+  
+  
+    <!--  consult Bootstrap docs at
+        http://twitter.github.com/bootstrap/javascript.html#carousel -->
+  <div id="this-carousel-id" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="active item">
+	              <center>
+<%= gmaps({
+  "map_options" => {"auto_zoom" => false, "zoom" => 14 },
+  "markers" => {"data" => @json }
+})
+%></center>
+      </img>
+	    <div class="carousel-caption">
+<h4 class="lead pull-right">Map</h4>
+          </div>
+        </div>        
+      <% if @reviewpassed.image? %>
+      <div class="item">
+      <center><%= image_tag(@reviewpassed.image, :size => '600x400')%></center>
+	      <div class="carousel-caption">
+	      <h4 class="lead pull-right">Image</h4>
+          </div>
+
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+      <a class="carousel-control left" href="#this-carousel-id" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#this-carousel-id" data-slide="next">&rsaquo;</a>
+    
+
+<script>
+$(function(){
+$('#this-carousel-id').carousel();
+});
+</script>   
+        
+
+        <b>Created on:</b> <%= "#{@reviewpassed.created_at.to_formatted_s(:long_ordinal)}"%>
+<br>
+<b>Keywords:</b> <%= "#{@reviewpassed.category.join(', ')}"%>
+            <br>
+            <b>Budget:</b> <%= "#{@reviewpassed.budget}"%><br>
+            <b>Viewed:</b> <%= "#{pluralize(@reviewpassed.impressionist_count(:filter=>:ip_address), "time")}" %>
+<br>
+<b>Averate rating:</b>
+<% if Rating.exists?(review_id: @reviewpassed.id)%>
+<div id="star"></div>
+	<script>
+  $('#star').raty({
+    readOnly: true,
+    score: <%= @reviewpassed.average_rating %>,
+    path: '/assets',
+    halfShow: true
+  });
+  </script>
+<% else %>
+Unrated.
+<% end %>
+
+            
+<% if signed_in? && @reviewpassed.user_id != current_user.id%>
+
+<b>Your rating:</b>
+<div id="user_star">
+<script>	
+  $('#user_star').raty({
+    score: <%= @rating.score %>,
+    path: '/assets',
+    click: function(score, evt) {
+      $.ajax({
+        url: '/ratings/' + <%= @rating.id %>,
+        type: 'PATCH',
+        data: { score: score }
+      });
+    }
+  });
+</script>
+</div>
+
+<% elsif signed_in? && @reviewpassed.user_id == current_user.id %>
+<br>
+<b><%= link_to("Edit this review?", reviewedit_path(id: @reviewpassed.id))%></b><br>
+
+<% else %>
+<%= link_to("Sign in to rate and comment on this travel guide", signin_path) %>
+<% end %>
+
+<hr class="featurette-divider">
+<div class="featurette">
+<section>
+<%= @reviewpassed.content.html_safe%>
+            <br>           
+            
+</section>
+</div>
+<hr class="featurette-divider">
+<section>
+<% if signed_in? %>
+<%= render 'shared/comment_form' %>
+<% end %>
+<% if @reviewpassed.comments.any? %>
+<h2 class="pull-left">Comments (<%= @reviewpassed.comments.count %>)</h3>
+<ol class="comments">
+<%= render @comments %>
+</ol>
+<%= will_paginate @comments %>
+<% end %>
+</section>
+</div>

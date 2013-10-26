@@ -1,0 +1,39 @@
+<% provide(:title, 'Search results') %>
+<br>
+<h2 class="featurette-heading">Guides</h2>
+<h4>Filter by:</h4>
+<div class="row">
+<br>
+<aside class="span4">
+<%= render 'shared/review_filter' %>
+</aside>
+
+
+<% if @reviews == 1 %>
+
+<section class="span8">
+Sorry, no results found. Been there already?<br><br> 
+<%= link_to_if signed_in?, "Post your own!", current_user, class: "btn" do link_to("Post your own!", signin_path, class: "btn")
+end %>
+</section>
+
+<% else %>
+
+<section class="span8">
+<%= will_paginate @reviews%>
+<ol class="reviews">
+      <% @reviews.each do |review| %>
+      <li>
+      <%= link_to "#{pluralize(review.days,"day")} in #{review.city} in #{review.season}", reviewshow_path(:id => review.id), 'data-no-turbolink' => true %> by <%= link_to User.find_by(id: review.user_id).name, User.find_by(id: review.user_id)%>.
+      <span class="timestamp"> 
+      <i>Posted <%= time_ago_in_words(review.created_at) %> ago.</i><br>
+      <b>Summary: </b><%= review.summary %>
+      </span><br>
+      (Rating: <% if Rating.exists?(review_id: review.id)%> <%="#{'%.1f' % review.average_rating}" %>) <% else %> Unrated) <%end%>
+      <% end %>
+      </li>                                       
+                                    
+</ol>
+</section>
+<% end %>
+</div>

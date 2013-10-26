@@ -1,0 +1,41 @@
+<%= form_tag reviewfilter_path, :method => 'get' do %>
+  <div class="field">
+  	<%= label_tag :content, 'Keywords: ' %>
+    <%= text_field_tag :content, params[:content], placeholder:"Guides that contain..." %>
+  </div>
+  <div class="field">
+  	<%= label_tag :budgetck, 'Budget: ' %>
+    <%= check_box_tag "budgetck[]", 1 %><%=' $'%><br>
+    <%= check_box_tag "budgetck[]", 2 %><%=' $$' %><br>    
+    <%= check_box_tag "budgetck[]", 4 %><%=' $$$'%>
+  </div>
+  <br>
+  <div class="field">
+  	<%= label_tag :category, 'Categories: ' %>
+    <% cats = Review::CATEGORIES%> 
+    <% cats.each do |c| %> <%= check_box_tag "[category][]", c%> <%= c %><br>
+ 	<% end %>
+    </div><br>
+  <div class="field">
+  	<%= label_tag :timestamp, 'Only show results from: ' %>
+    <%= select_tag :timestamp, "<option></option><option>Past week</option><option>Past month</option><option>Past year</option><option>Anytime</option>".html_safe %>
+  </div>
+  <div class="field">
+    <%= label_tag :sort_order, 'Sort results by: ' %>
+    <%= select_tag :sort_order, "<option>Upload date (newest first)</option><option>Upload date (oldest first)</option><option>Rating (highest first)</option><option>Rating (lowest first)</option><option>Viewed (most first)</option>".html_safe %> <br><br>
+  </div>
+    
+    <%= submit_tag "Search", :name => nil, class: "btn" %>
+    <%= hidden_field_tag :days, params[:days]%>
+    <%= hidden_field_tag :city, params[:city]%>
+    <%= hidden_field_tag :season, params[:season]%>
+<% end %>	
+<br>
+<%= form_tag reviewfilter_path, :method => 'get' do %>
+    <%= submit_tag "Reset", :name => nil, class: "btn" %>
+    <%= hidden_field_tag :content, ''%>
+    <%= hidden_field_tag :days, ''%>
+    <%= hidden_field_tag :city, ''%>
+    <%= hidden_field_tag :season, ''%>
+    <%= hidden_field_tag :budget, ''%>
+<% end %>	

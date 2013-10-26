@@ -1,0 +1,9 @@
+<%= form_for(@score) do |f| %>
+    <div class="field">
+    <%= f.select :score, options_for_select([[1], [2], [3], [4], [5]])%>
+    <%= f.hidden_field :review_id, :value => @reviewpassed.id %>
+    <%= f.hidden_field :reviewer_id, :value => current_user.id %>
+      </div>
+  <%= f.submit "Rate", class: "btn btn-large btn-primary" %>
+  
+<% end %>                               

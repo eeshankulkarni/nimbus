@@ -1,0 +1,56 @@
+<%= form_for @review, html: {multipart: true} do |f| %>
+          <%= f.hidden_field :lat %>
+          <%# if @review.viewcount.nil? %>
+          <%#= f.hidden_field :viewcount, :value => 0 %>
+          <%# else %>
+          <%#= f.hidden_field :viewcount, params[:viewcount] %>
+          <%# end %>
+          <%= f.hidden_field :lng %>
+          <%= f.hidden_field :address%>
+          <%= f.hidden_field :city%>
+                    <%= f.hidden_field :location_name%>
+          <%= f.hidden_field :district%>
+                    <%= f.hidden_field :postcode%>
+          <%= f.hidden_field :country%>
+                    <%= f.hidden_field :phone_number%>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.label :days, "Number of Days" %>
+    <%= f.text_field :days, placeholder: "" %>
+  </div>
+  <div class="field">
+    <%= f.label :location_search, "City" %>
+    <%= f.text_field :location_search, class:"form-text"%>     
+    <%= render "stat_pages/googlemap" %>
+    </div>
+  <div class="field">
+  <%= f.label :summary, "Summary (max 200 characters)" %>
+    <%= f.text_area :summary, placeholder: "", class:"form-text" %>
+      </div>      
+  <div class="field">
+    <%= f.label :content, "Review (don't hold back!)" %>
+	    <%= f.text_area :content, :class => "tinymce", :rows => 40, :cols => 120 %>
+      </div>
+      <br>
+  <div class="field">
+      <%= f.label :image, "Cover photo" %>
+    <%= f.file_field :image%>
+      </div>      
+  <div class="field">
+        <%= f.label :season, "Season" %>
+    <%= f.select :season, options_for_select([['Summer'], ['Winter'], ['Autumn'], ['Spring']])%>
+      </div>
+  <div class="field">
+        <%= f.label :budget, "Budget" %>
+    <%= f.select :budget, options_for_select([['$', 1], ['$$', 2], ['$$$', 3]]) %>
+  </div>
+  <div class="field">
+       <%= f.label :category, "Category (select all that apply)" %>
+  <ol class="thumbnails">
+ 	<% cats = Review::CATEGORIES%> 
+    <% cats.each do |c| %> <li> <%= check_box_tag "review[category][]", c%> <%= c %> <br>
+ 	<% end %></li>
+ 	</div>
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<%= tinymce %>
+<% end %>

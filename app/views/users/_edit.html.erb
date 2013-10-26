@@ -1,0 +1,27 @@
+<h2>Update your Profile</h2>
+<div class="row">
+  <div class="span10">
+    <%= form_for(@user) do |f| %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <%= f.password_field :password_confirmation %>
+     
+      <%= f.label :dp, "Change your display picture" %>
+      <%=image_tag(@user.dp_url(:thumb), height:'80', width:'80') if @user.dp?%><br>
+      <%= f.file_field :dp %>
+
+      <center><br><%= f.submit "Save changes", class: "btn-large btn-danger" %><br>
+      <%= link_to "Delete account", @user, method: :delete, class: "btn btn-warning", data: { confirm: "You sure?" } %></center>
+    <% end %>
+
+  </div>
+</div>

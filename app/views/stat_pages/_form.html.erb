@@ -1,0 +1,17 @@
+<aside class="span4">
+<br>
+<h3 class="lead"> Where do YOU want to go? </h3>
+<%= form_for(@review, url: reviewsearch_path, method: "get") do |f| %>
+          <%= f.hidden_field :lat%>
+          <%= f.hidden_field :lng%>          <div class="field">
+                    <%= label_tag :city, "Location" %>
+        <%= text_field_tag :location_search, nil, type: "search" %>
+              <%= label_tag :days, "Number of Days" %>
+         <%= text_field_tag(:days, params[:days], placeholder: "Days") %>
+
+                <%= label_tag :season, "Season" %>        
+                    <%= select_tag :season, "<option>Summer</option><option>Autumn</option><option>Winter</option><option>Spring</option>".html_safe, :prompt => "Any"%></div>
+                                  <%= submit_tag "Search", :name => nil, class: "btn"%>          
+<% end %><br>
+</aside>
+<center>                               <%= render partial: "googlemapsearch" %></center>

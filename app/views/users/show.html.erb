@@ -1,0 +1,36 @@
+<% provide(:title, @user.name) %>
+<div class="center hero-unit">
+  <aside class="span4">
+     <%= render 'shared/user_info' %>
+
+  </aside>
+</div>
+<div class="tabbable tabs-left">
+ <ul class="nav nav-tabs" id="proftabs">
+  <li><a href="#reviews_tab"  data-toggle="tab" >Travel Guides</a></li>
+  <% if @user == current_user %> 
+  <li><a href="#new_review" data-toggle="tab">New Guide</a></li>
+  <li><a href="#edit" data-toggle="tab">My Details</a></li>
+  <% end %>
+ </ul>
+  <div class="tab-content">
+        <div id="reviews_tab" class="tab-pane">
+          <aside class="span4">
+	          <section>
+	          <% if @user.reviews.any? %>
+	          	<ol class="thumbnails">
+	          		<%= render @reviews %>
+	          	</ol>
+	          		<%= will_paginate @reviews %>
+	          <% end %>
+	          </section>
+          </aside>
+        </div>
+        <div id="new_review"  class="tab-pane">
+	        <%= render 'shared/review_form' %>
+    	</div>
+    	<div id="edit"  class="tab-pane">
+	        <%= render 'edit' %>
+    	</div>
+  </div>
+</div>

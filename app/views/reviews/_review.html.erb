@@ -1,0 +1,20 @@
+<li class="thumbnails">
+<div class="well">
+  <span class="title"><b><%= link_to "#{pluralize(review.days, "day")} in #{review.city} in #{review.season} (Budget: #{review.budget})", reviewshow_path(:id => review.id), 'data-no-turbolink' => true%></b></span>
+      Summary: <%= review.summary %>
+    <br>
+    <i> Viewed: <%= pluralize(review.impressionist_count(:filter =>:ip_address), "time") %> </i>
+	<div class="image_placeholder">    <%= image_tag review.image_url %></div>    <br>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(review.created_at) %> ago.   
+    <% if current_user?(review.user) %>
+    <%= link_to "(Delete)", review, method: :delete,
+                                     data: { confirm: "Are you sure?" },
+                                     title: review.content %>
+    <%= link_to "(Edit)", reviewedit_path(:id => review.id), 'data-no-turbolink' => true%>
+    <% end %>
+  </span>
+    
+  </span>
+</div>
+</li>

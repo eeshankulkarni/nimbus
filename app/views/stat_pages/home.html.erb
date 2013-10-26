@@ -1,0 +1,21 @@
+<% provide(:title, "Home") %>
+<div class="center hero-unit">
+<h1 class="featurette-heading">The Nimbus Project</h1>
+<h2 class="lead">Browse through thousands of the best travel blogs and guides here!</h3>
+<br>
+<section>
+<%= render 'form' %>
+</section>
+<% if signed_in? %>
+
+</div>
+<% else %>
+<br>
+Want to earn money for your travel reviews? 
+<br>If your guides are among our most popular, we'll pay you to keep writing!
+<br><br>
+<%= link_to "Sign up", signup_path, class: "btn btn-large" %> <%= link_to "Sign in", signin_path, class: "btn btn-large" %> 
+<br> OR <br>
+<%= link_to "Find out more!", help_path, class: "btn btn-large" %>
+</div>
+<%end %>
