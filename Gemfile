@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -13,7 +13,6 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'sass-rails', '~> 4.0.0'
 gem 'tinymce-rails'
 gem 'jquery-ui-rails'
-gem 'gmaps4rails'
 gem 'impressionist'
 
 gem 'gmaps-autocomplete-rails'
@@ -56,7 +55,6 @@ end
 group :production do
   gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
-  gem 'gmaps4rails'
 end
 
 group :development, :test do

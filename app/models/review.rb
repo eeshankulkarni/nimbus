@@ -1,9 +1,4 @@
 class Review < ActiveRecord::Base
-    acts_as_gmappable :lng => "lng", :lat => "lat"
-    
-    def gmaps4rails_address
-        "#{self.city}, #{self.country}"
-    end
     is_impressionable
     belongs_to :user
     mount_uploader :image, ReviewImagesUploader
