@@ -13,8 +13,8 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'sass-rails', '~> 4.0.0'
 gem 'tinymce-rails'
 gem 'jquery-ui-rails'
+gem 'gmaps4rails'
 gem 'impressionist'
-
 gem 'gmaps-autocomplete-rails'
 
 # Use Uglifier as compressor for JavaScript assets
