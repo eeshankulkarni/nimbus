@@ -13,7 +13,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'sass-rails', '~> 4.0.0'
 gem 'tinymce-rails'
 gem 'jquery-ui-rails'
-gem 'gmaps4rails'
+gem 'gmaps4rails', '1.5.0'
 gem 'impressionist'
 gem 'gmaps-autocomplete-rails'
 
