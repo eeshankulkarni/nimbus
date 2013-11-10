@@ -47,10 +47,11 @@ class ReviewsController < ApplicationController
 
     def review
         @reviewpassed = Review.find_by(id: params[:id])
-        @json = @reviewpassed.to_gmaps4rails
+        @hash = Gmaps4rails.build_markers(@reviewpassed) do |user, marker|
+            marker.lat user.lat
+            marker.lng user.lng
+        end
         impressionist(@reviewpassed)
-        @comment = @reviewpassed.comments.build
-        @comments = @reviewpassed.comments.paginate(page: params[:page])
         if signed_in? && @reviewpassed.user_id != current_user.id
         if Rating.exists?(review_id: @reviewpassed.id, user_id: @current_user.id)
         @rating = Rating.where(review_id: @reviewpassed.id, user_id: @current_user.id).first

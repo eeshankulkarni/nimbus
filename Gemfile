@@ -12,8 +12,8 @@ gem 'bootstrap-will_paginate', '0.0.9'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'tinymce-rails'
-gem 'jquery-ui-rails'
-gem 'gmaps4rails', '1.5.0'
+gem 'jquery-ui-rails' 
+gem 'gmaps4rails'
 gem 'impressionist'
 gem 'gmaps-autocomplete-rails'
 

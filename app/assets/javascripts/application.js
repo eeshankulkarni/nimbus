@@ -4,6 +4,8 @@
 //= require turbolinks
 //= require tinymce-jquery
 //= require raty.min.js
+//= require underscore
+//= require gmaps/google
 //= require_tree .
 
 jQuery(document).ready(function($) {

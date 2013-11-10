@@ -1,15 +1,9 @@
 class Review < ActiveRecord::Base
-    acts_as_gmappable :lng => "lng", :lat => "lat"
-    
-    def gmaps4rails_address
-        "#{self.city}, #{self.country}"
-    end
 
     is_impressionable
     belongs_to :user
     mount_uploader :image, ReviewImagesUploader
     has_many :ratings, dependent: :destroy
-    has_many :comments, dependent: :destroy
     serialize :category
     default_scope -> { order('created_at DESC') }
     validates :user_id, presence: true

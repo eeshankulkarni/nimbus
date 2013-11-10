@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131023163156) do
+ActiveRecord::Schema.define(version: 20131023154232781) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -20,8 +20,6 @@ ActiveRecord::Schema.define(version: 20131023163156) do
     t.datetime "updated_at"
     t.integer  "user_id"
   end
-
-  add_index "comments", ["review_id", "created_at"], name: "index_comments_on_review_id_and_created_at"
 
   create_table "impressions", force: true do |t|
     t.string   "impressionable_type"
@@ -48,6 +46,20 @@ ActiveRecord::Schema.define(version: 20131023163156) do
   add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
   add_index "impressions", ["user_id"], name: "index_impressions_on_user_id"
 
+  create_table "locations", force: true do |t|
+    t.string   "address"
+    t.string   "location_name"
+    t.string   "phone_number"
+    t.string   "district"
+    t.string   "city"
+    t.string   "postcode"
+    t.string   "country"
+    t.decimal  "lat",           precision: 16, scale: 13
+    t.decimal  "lng",           precision: 16, scale: 13
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ratings", force: true do |t|
     t.integer  "review_id"
     t.integer  "user_id"
@@ -69,7 +81,6 @@ ActiveRecord::Schema.define(version: 20131023163156) do
     t.string   "season"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "average_score"
     t.string   "summary"
     t.string   "image"
     t.string   "district"
